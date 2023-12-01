@@ -7,5 +7,8 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "day-1": "bun day-01/index.ts"
   }
 }

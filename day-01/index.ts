@@ -1,4 +1,5 @@
 import Bun from 'bun';
+import path from 'path';
 
 const FILENAME = 'input.txt';
 
@@ -6,7 +7,10 @@ readFile(FILENAME).then(processContent).then(console.log).catch(console.error);
 
 /** Reads the contents of a file and returns its lines as an array of strings. */
 async function readFile(filename: string): Promise<string[]> {
-  const file = Bun.file(filename);
+  const currentDirectory = import.meta.dir;
+  const filepath = path.join(currentDirectory, filename);
+
+  const file = Bun.file(filepath);
   const content = await file.text();
   return content.split('\n').filter(Boolean); // Remove empty lines
 }
