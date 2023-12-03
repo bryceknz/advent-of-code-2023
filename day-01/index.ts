@@ -1,19 +1,12 @@
-import Bun from 'bun';
-import path from 'path';
+import { readFile } from '../utils';
 
+const DIRECTORY = import.meta.dir;
 const FILENAME = 'input.txt';
 
-readFile(FILENAME).then(processContent).then(console.log).catch(console.error);
-
-/** Reads the contents of a file and returns its lines as an array of strings. */
-async function readFile(filename: string): Promise<string[]> {
-  const currentDirectory = import.meta.dir;
-  const filepath = path.join(currentDirectory, filename);
-
-  const file = Bun.file(filepath);
-  const content = await file.text();
-  return content.split('\n').filter(Boolean); // Remove empty lines
-}
+readFile(DIRECTORY, FILENAME)
+  .then(processContent)
+  .then(console.log)
+  .catch(console.error);
 
 /** Processes each line and returns the sum of all extracted codes. */
 function processContent(content: string[]): number {

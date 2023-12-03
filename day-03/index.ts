@@ -1,24 +1,15 @@
-import Bun from 'bun';
-import path from 'path';
+import { readFile } from '../utils';
 
 const FILENAME = 'input.txt';
+const DIRECTORY = import.meta.dir;
+
 let SCHEMATIC: string[][];
 
-readFile(FILENAME)
+readFile(DIRECTORY, FILENAME)
   .then(convertToSchematic)
   .then(findAndSumPartNumbers)
   .then(console.log)
   .catch(console.error);
-
-/** Reads the contents of a file and returns its lines as an array of strings. */
-async function readFile(filename: string): Promise<string[]> {
-  const currentDirectory = import.meta.dir;
-  const filepath = path.join(currentDirectory, filename);
-
-  const file = Bun.file(filepath);
-  const content = await file.text();
-  return content.split('\n').filter(Boolean); // Remove empty line at the end of the file
-}
 
 /** Converts a string array into a 2D array of characters. */
 export function convertToSchematic(schematicString: string[]): string[][] {
